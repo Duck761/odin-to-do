@@ -1,13 +1,39 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do</title>
     <link rel="stylesheet" href="../src/style.css">
-    <script defer src="bundle.js"></script>
-</head>
-<body>
-    Hello
-</body>
+    <link
+      rel="shortcut icon"
+      href="../images/favicon.png"
+      type="image/x-icon"
+      />
+      <script src="main.js" defer></script>
+  </head>
+  <body style="display: flex; flex-direction: row; ">
+    <div id="sidebar">
+      <div id="fitted-wrapper" style="width: 100%; height: 100%;">
+        
+        <!-- Projects -->
+        <div id="projects">
+          <h1>Projects</h1>
+        <ul id="projects-list">
+            <li class="project-item">
+              <h3 class="project-item-title" id="inbox-project">Inbox</h3>
+            </li>
+            <!-- New Project button -->
+          </ul>
+          <button id="new-project-button">+ New Project</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="main-content">
+      <div id="main-content-fitted-wrapper">
+        <div id="project-title">inbox</div>
+      </div>
+    </div>
+  </body>
 </html>
