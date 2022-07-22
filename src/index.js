@@ -34,6 +34,19 @@ function renderMainContent(index) {
   addTaskButton.style.display = "block";
 }
 
+// Use localStorage to store projects
+function saveProjects() {
+  localStorage.setItem("projects", JSON.stringify(projects));
+}
+
+function loadProjects() {
+  if (localStorage.getItem("projects")) {
+    projects = JSON.parse(localStorage.getItem("projects"));
+    renderProjects();
+    getSelectedProject();
+  }
+}
+loadProjects();
 
 function renderProjects() {
   projectsList.innerHTML = "";
@@ -47,32 +60,8 @@ function renderProjects() {
       document.getElementsByClassName("task-container")[i].remove();
     }
     projectsList.appendChild(projectContainer);
-  });
-}
-function saveProjects() {
-  localStorage.setItem("projects", JSON.stringify(projects));
-}
-function loadProjects() {
-  let projectsString = localStorage.getItem("projects");
-  if (projectsString) {
-    projects = JSON.parse(projectsString);
     saveProjects();
-    renderProjects();
-    getSelectedProject();
-  }
-}
-loadProjects();
-
-function setPriorityColor() {
-  for (let i = 0; i < taskTitles.length; i++) {
-    if (priority === "low") {
-      taskTitles[i].style.color = "lightgreen";
-    } else if (priority === "medium") {
-      taskTitles[i].style.color = "yellow";
-    } else if (priority === "high") {
-      taskTitles[i].style.color = "red";
-    }
-  }
+  });
 }
 
 function getSelectedProject() {
@@ -80,7 +69,6 @@ function getSelectedProject() {
     projectContainers[i].addEventListener("click", () => {
       for (let j = 0; j < projectContainers.length; j++) {
         projectContainers[j].classList.remove("selected-project");
-        // Remove all tasks from main content
         for (let k = 0; k < document.getElementsByClassName("task-container").length; k++) {
           document.getElementsByClassName("task-container")[k].remove();
         }
@@ -88,10 +76,8 @@ function getSelectedProject() {
       projectContainers[i].classList.add("selected-project");
       selectedProject = projectContainers[i];
       renderMainContent(i);
-      // Render tasks
       projects[i].tasks.forEach((task) => {
         renderTasks(task);
-        setPriorityColor();
       })
     }); 
   }
@@ -110,24 +96,31 @@ function addProject(title) {
 addProjectButton.addEventListener("click", () => {
   const title = prompt("Project title:");
   addProject(title);
-  saveProjects();
 });
-function completeTask() {
-  for (let i = 0; i < taskContainers.length; i++) {
-    taskContainers[i].addEventListener("click", () => {
-      taskContainers[i].remove();
-    })
-  }
-}
 
 function renderTasks(task) {
   taskContainer = document.createElement("div");
   taskContainer.classList.add("task-container");
-  taskContainer.innerHTML += `<h2 class="task-title">${task.title}</h2>`;
+  taskContainer.setAttribute(`id`, `task-${task.title}`);
+  taskContainer.innerHTML = `<div class="task-title">${task.title}</div>`;
   taskContainer.innerHTML += `<div class="task-description">${task.description}</div>`;
-  taskContainer.innerHTML += `<div class="task-due-date">${task.dueDate}</div>`;
   mainContent.appendChild(taskContainer);
-  completeTask();
+  document.getElementById(`task-${task.title}`).addEventListener("click", () => {
+    let project = projects.find((project) => project.title === selectedProject.firstChild.textContent);
+    let taskIndex = project.tasks.findIndex((task) => task.title === task.title);
+    project.tasks.splice(taskIndex, 1);
+    document.getElementById(`task-${task.title}`).remove();
+    saveProjects();
+    console.log(projects);
+  })
+  
+  if (task.priority === "high") {
+    document.getElementById(`task-${task.title}`).style.color = "red";
+  } else if (task.priority === "medium") {
+    document.getElementById(`task-${task.title}`).style.color = "orange";
+  } else if (task.priority === "low") {
+    document.getElementById(`task-${task.title}`).style.color = "green";
+  }
 }
 
 addTaskButton.addEventListener("click", () => {
@@ -154,7 +147,5 @@ addTaskButton.addEventListener("click", () => {
   const task = new Task(title, description, dueDate, priority, completed, project);
   projects.find((project) => project.title === selectedProject.firstChild.textContent).tasks.push(task);
   renderTasks(task);
-  setPriorityColor();
   saveProjects();
 })
-
