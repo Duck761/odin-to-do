@@ -25,13 +25,14 @@ const mainContent = document.getElementById("main-content");
 let taskContainer;
 let taskTitles = document.getElementsByClassName("task-title");
 let priority;
+let taskContainers = document.getElementsByClassName("task-container");
+
 
 function renderMainContent(index) {
   projectNameHeader.textContent = projectContainers[index].firstChild.textContent;
   addTaskButton.textContent = "Add task"
   addTaskButton.style.display = "block";
 }
-
 
 
 function renderProjects() {
@@ -48,6 +49,19 @@ function renderProjects() {
     projectsList.appendChild(projectContainer);
   });
 }
+function saveProjects() {
+  localStorage.setItem("projects", JSON.stringify(projects));
+}
+function loadProjects() {
+  let projectsString = localStorage.getItem("projects");
+  if (projectsString) {
+    projects = JSON.parse(projectsString);
+    saveProjects();
+    renderProjects();
+    getSelectedProject();
+  }
+}
+loadProjects();
 
 function setPriorityColor() {
   for (let i = 0; i < taskTitles.length; i++) {
@@ -96,7 +110,15 @@ function addProject(title) {
 addProjectButton.addEventListener("click", () => {
   const title = prompt("Project title:");
   addProject(title);
+  saveProjects();
 });
+function completeTask() {
+  for (let i = 0; i < taskContainers.length; i++) {
+    taskContainers[i].addEventListener("click", () => {
+      taskContainers[i].remove();
+    })
+  }
+}
 
 function renderTasks(task) {
   taskContainer = document.createElement("div");
@@ -105,6 +127,7 @@ function renderTasks(task) {
   taskContainer.innerHTML += `<div class="task-description">${task.description}</div>`;
   taskContainer.innerHTML += `<div class="task-due-date">${task.dueDate}</div>`;
   mainContent.appendChild(taskContainer);
+  completeTask();
 }
 
 addTaskButton.addEventListener("click", () => {
@@ -132,4 +155,6 @@ addTaskButton.addEventListener("click", () => {
   projects.find((project) => project.title === selectedProject.firstChild.textContent).tasks.push(task);
   renderTasks(task);
   setPriorityColor();
+  saveProjects();
 })
+
