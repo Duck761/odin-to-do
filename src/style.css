@@ -1,68 +1,52 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;  
-} 
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 #sidebar {
-    width: 325px;
-    height: 100%;
-    background-color: #f1f1f1;
-    padding: 25px;
+  width: 325px;
+  height: 100%;
+  background-color: #f1f1f1;
+  padding: 25px;
 }
-
-#default-project { background-color: #e6e6e6;}
 
 #projects-list {
-    list-style: none;
-    margin-top: 15px;
+  list-style: none;
+  margin-top: 15px;
 }
 
-.project-item-title {
-    font-size: 1.5em;
-    margin-top: 10px;
-    color: #333333;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 10px;
-}
-.project-item-title:hover {
-    background-color: #e6e6e6;
-}
-
-#new-project-button {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 0px;
-    cursor: pointer;
-    font-size: 20px;
-    color: #333333;
-    font-family: 'Courier New', Courier, monospace;
-}
 #new-project-button:hover {
-    background-color: #e6e6e6;
+  background-color: #e6e6e6;
 }
 
-#main-content {
-    width: calc(100% - 325px);;
-    background-color: #f1f1f1;
-    padding: 75px;
+.project-container {
+  border-radius: 5px;
+  color: #333;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: bold;
+}
+.project-container:hover {
+  background-color: #e6e6e6;
 }
 
-#main-content-fitted-wrapper {
-    width: 100%;
-    height: 100%;
-    background-color: #f1f1f1;
+#add-project-button {
+  border-radius: 5px;
+  border: 0px;
+  color: #333;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
+}
+#add-project-button:hover {
+  background-color: #e6e6e6;
 }
 
-#project-title {
-    font-size: 2em;
-    color: #333333;
-    font-weight: bold;
-    border-radius: 5px;
-    padding: 10px;
+.selected-project {
+  background-color: #e6e6e6;
 }
