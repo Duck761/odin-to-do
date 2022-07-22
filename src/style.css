@@ -50,3 +50,44 @@
 .selected-project {
   background-color: #e6e6e6;
 }
+
+#main-content {
+  width: 75%;
+  height: 90%;
+  margin: auto;
+}
+
+#project-name-header {
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+#add-task-button {
+  border-radius: 5px;
+  border: 0px;
+  color: #333;
+  width: fit-content;
+  background: none;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 25px;
+  font-family: 'Courier New', Courier, monospace;
+  display: none;
+} 
+
+.task-container {
+  background-color: #e6e6e6;
+  width: calc(100% - 10px);
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.task-container:hover {
+  background-color: #f1f1f1;
+}
+
+.task-description {
+  font-size: 15px;
+  font:100
+}
